@@ -1,2 +1,3 @@
-# hatracker-creation-kit
-The Hatracker Creation Kit lets you create 3D models (avatars, props) in Unity.
+# Hatracker Creation Kit
+
+The Hatracker Creation Kit (HaCK) lets you export Unity assets (avatars, props) as .hatom to Hatracker.
