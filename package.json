@@ -1,0 +1,10 @@
+{
+  "author": "noir_neo",
+  "name": "com.neoneobeam.hatracker-creation-kit",
+  "version": "0.0.1",
+  "unity": "2022.3",
+  "displayName": "Hatracker Creation Kit",
+  "description": "The Hatracker Creation Kit exports your Unity assets to Hatracker.",
+  "license": "SEE LICENSE IN LICENSE",
+  "unityRelease": "22f1"
+}
