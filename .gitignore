@@ -40,3 +40,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Temp for CI
+BuildProject~/

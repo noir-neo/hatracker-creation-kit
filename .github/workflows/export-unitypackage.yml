@@ -1,0 +1,53 @@
+name: Export unitypackage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export:
+    name: Export .unitypackage
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create BuildProject directory
+        run: |
+          cp -R UnityProject~ BuildProject~
+
+          jq 'del(.dependencies["com.neoneobeam.hatracker-creation-kit"])' \
+            BuildProject~/Packages/manifest.json > temp.json && mv temp.json BuildProject~/Packages/manifest.json
+
+          mkdir -p BuildProject~/Assets/HatrackerCreationKit
+          find . -maxdepth 1 -not -path "./BuildProject~*" -not -path "./UnityProject~*" -not -path "." -not -path "./.git*" | while read item; do
+            cp -r "$item" BuildProject~/Assets/HatrackerCreationKit/
+          done
+
+
+      - name: Cache Library folder
+        uses: actions/cache@v4
+        with:
+          path: BuildProject~/Library
+          key: Library-Build-${{ hashFiles('BuildProject~/Assets/**', 'BuildProject~/Packages/**', 'BuildProject~/ProjectSettings/**') }}
+          restore-keys: |
+            Library-Build-
+
+      - name: Export package
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: BuildProject~
+          buildMethod: PackageExporter.Export
+
+      - name: Upload unitypackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: HatrackerCreationKit
+          path: BuildProject~/HatrackerCreationKit.unitypackage
+
