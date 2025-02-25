@@ -23,6 +23,7 @@ namespace HatrackerCreationKit.Editor.Window
             var prefabField = new ObjectField("Prefab")
             {
                 objectType = typeof(GameObject),
+                allowSceneObjects = false,
             };
             mainContainer.Add(prefabField);
 
