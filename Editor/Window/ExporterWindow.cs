@@ -52,7 +52,7 @@ namespace HatrackerCreationKit.Editor.Window
                     Debug.LogError(failure.Error);
                     return;
                 case Exporter.Result<Exporter.AssetBundleBuilder.Success>.Success success:
-                    FileUtil.MoveFileOrDirectory(success.Value.OutputPath, outputPath);
+                    FileUtil.ReplaceFile(success.Value.OutputPath, outputPath);
                     EditorUtility.RevealInFinder(outputPath);
                     break;
             }
