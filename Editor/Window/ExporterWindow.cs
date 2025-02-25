@@ -1,5 +1,5 @@
 using UnityEditor;
-using UnityEditor.Search;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,6 +23,7 @@ namespace HatrackerCreationKit.Editor.Window
             var prefabField = new ObjectField("Prefab")
             {
                 objectType = typeof(GameObject),
+                allowSceneObjects = false,
             };
             mainContainer.Add(prefabField);
 
