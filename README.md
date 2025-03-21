@@ -29,4 +29,13 @@ Unity 2022.3.22f1
 
 ### Allowed Components
 
-(TODO)
+- UniHumanoid.Humanoid
+- UnityEngine.Animator
+- UnityEngine.MeshFilter
+- UnityEngine.MeshRenderer
+- UnityEngine.SkinnedMeshRenderer
+- UnityEngine.Transform
+- UniVRM10.Vrm10Instance
+- UniVRM10.VRM10SpringBoneCollider
+- UniVRM10.VRM10SpringBoneColliderGroup
+- UniVRM10.VRM10SpringBoneJoint
