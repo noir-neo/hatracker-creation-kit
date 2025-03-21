@@ -14,8 +14,10 @@ Unity 2022.3.22f1
 
 ### Installation
 
-- Via Unity Package Manager
-  - `https://github.com/noir-neo/hatracker-creation-kit.git` 
+- Using `.unitypackage`
+  - Download the latest package from [Releases](https://github.com/noir-neo/hatracker-creation-kit/releases).
+- Via Unity Package Manager (UPM)
+  - Enter the following URL: `https://github.com/noir-neo/hatracker-creation-kit.git`
 
 ### Exporting Avatars
 
