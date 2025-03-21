@@ -53,17 +53,24 @@ namespace HatrackerCreationKit.Editor.Exporter
 
             var tmpOutputDir = Path.Combine(Application.temporaryCachePath, BuildTarget.ToString());
 
-            if (!Directory.Exists(tmpOutputDir))
+            try
             {
-                Directory.CreateDirectory(tmpOutputDir);
-            }
+                if (!Directory.Exists(tmpOutputDir))
+                {
+                    Directory.CreateDirectory(tmpOutputDir);
+                }
 
-            BuildPipeline.BuildAssetBundles(
-                tmpOutputDir,
-                buildMap,
-                BuildAssetBundleOptions.None,
-                BuildTarget
-            );
+                BuildPipeline.BuildAssetBundles(
+                    tmpOutputDir,
+                    buildMap,
+                    BuildAssetBundleOptions.None,
+                    BuildTarget
+                );
+            }
+            catch (Exception e)
+            {
+                return Result<Success>.FromException(e);
+            }
 
             var outputPath = Path.Combine(tmpOutputDir, bundleName);
             return Result<Success>.FromValue(new Success(outputPath));
