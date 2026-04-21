@@ -6,16 +6,14 @@ Hatracker Creation Kit（HaCK）は、 Unity のアセット（アバターや�
 
 ## はじめに
 
-### 対応 Unity バージョン
+### 要件
 
-Unity 2022.3.22f1
-
-- 必要なモジュール: iOS Build Support
+- Unity 6000.3.9f1
+- Universal Render Pipeline (URP)
+- iOS Build Support モジュール
 
 ### インストール方法
 
-- `.unitypackage` から
-  - [Releases](https://github.com/noir-neo/hatracker-creation-kit/releases) から最新のパッケージをダウンロードします
 - Unity Package Manager 経由
   - 次のURLを入力します: `https://github.com/noir-neo/hatracker-creation-kit.git` 
 
