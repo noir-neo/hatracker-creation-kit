@@ -6,16 +6,14 @@ The Hatracker Creation Kit (HaCK) lets you export Unity assets (avatars, props) 
 
 ## Getting Started
 
-### Current Unity Version
+### Requirements
 
-Unity 2022.3.22f1
-
-- Required module: iOS Build Support
+- Unity 6000.3.9f1
+- Universal Render Pipeline (URP)
+- iOS Build Support module
 
 ### Installation
 
-- Using `.unitypackage`
-  - Download the latest package from [Releases](https://github.com/noir-neo/hatracker-creation-kit/releases).
 - Via Unity Package Manager (UPM)
   - Enter the following URL: `https://github.com/noir-neo/hatracker-creation-kit.git`
 
