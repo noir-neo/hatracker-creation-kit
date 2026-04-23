@@ -1,41 +1,60 @@
 # Hatracker Creation Kit
 
-The Hatracker Creation Kit (HaCK) lets you export Unity assets (avatars, props) as .hatom to Hatracker.
+The Hatracker Creation Kit (HaCK) exports avatars set up in Unity to the .hatom format.
+It supports custom shaders and certain assets that cannot be carried over via the VRM format.
 
-[Hatracker](https://scrapbox.io/hatracker/hatracker) is a virtual avatar camera app.
+Avatars exported as .hatom can be used in Hatracker, a virtual avatar camera app.
 
-## Getting Started
-
-### Requirements
+## Requirements
 
 - Unity 6000.3.9f1
 - Universal Render Pipeline (URP)
 - iOS Build Support module
 
-### Installation
+## Installation
 
 - Via Unity Package Manager (UPM)
   - Enter the following URL: `https://github.com/noir-neo/hatracker-creation-kit.git`
 
-### Exporting Avatars
+## Project Setup
 
-1. Open the Exporter window from the "Hatracker > Exporter" menu.
-2. Select your prefab and click "Export."
-3. Choose a destination folder for the .hatom file.
-4. Import the .hatom file into Hatracker.
+- Open Project Settings > Hatracker > Project Validation.
+- If any items need fixing, click the "Fix" button to resolve them.
 
+## Exporting Avatars
+
+1. Open the Exporter window from the Hatracker > Exporter menu.
+2. Select a prefab and click the "Export" button.
+3. Choose a destination, and the export will begin.
+4. Load the .hatom file from the avatar selection in the Hatracker app.
 
 ## Creating Avatars
 
 ### Allowed Components
 
+- MagicaCloth2.MagicaCloth
+- MagicaCloth2.MagicaSphereCollider
+- MagicaCloth2.MagicaCapsuleCollider
+- MagicaCloth2.MagicaPlaneCollider
+- MagicaCloth2.MagicaWindZone
 - UniHumanoid.Humanoid
 - UnityEngine.Animator
 - UnityEngine.MeshFilter
 - UnityEngine.MeshRenderer
 - UnityEngine.SkinnedMeshRenderer
 - UnityEngine.Transform
+- UniVRM10.Vrm10AimConstraint
 - UniVRM10.Vrm10Instance
+- UniVRM10.Vrm10RollConstraint
+- UniVRM10.Vrm10RotationConstraint
 - UniVRM10.VRM10SpringBoneCollider
 - UniVRM10.VRM10SpringBoneColliderGroup
 - UniVRM10.VRM10SpringBoneJoint
+
+### Supported Assets
+
+| Asset          | Version |
+|----------------|---------|
+| Magica Cloth 2 | 2.15.1  |
+| UniGLTF        | 0.131.0 |
+| VRM-1.0        | 0.131.0 |
