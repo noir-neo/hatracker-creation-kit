@@ -1,40 +1,60 @@
 # Hatracker Creation Kit
 
-Hatracker Creation Kit（HaCK）は、 Unity のアセット（アバターやプロップ）を .hatom 形式で hatracker 向けにエクスポートするツールです。
+Hatracker Creation Kit（HaCK）は、 Unity でセットアップしたアバターを .hatom 形式でエクスポートするツールです。
+VRM 形式では持ち運べないカスタムシェーダーや一部のアセットを使用できます。
 
-[hatracker](https://scrapbox.io/hatracker/hatracker) は、バーチャルアバターカメラアプリです。
+.hatom 形式でエクスポートしたアバターは、バーチャルアバターカメラアプリ Hatracker で使用できます。
 
-## はじめに
-
-### 要件
+## 要件
 
 - Unity 6000.3.9f1
 - Universal Render Pipeline (URP)
 - iOS Build Support モジュール
 
-### インストール方法
+## インストール方法
 
 - Unity Package Manager 経由
   - 次のURLを入力します: `https://github.com/noir-neo/hatracker-creation-kit.git` 
 
-### Exporting Avatars
+## プロジェクトのセットアップ
 
-1. メニューから「Hatracker > Exporter」を開く
-2. prefab を選択し、「Export」ボタンをクリック
-3. .hatom ファイルの保存先を選択
-4. hatracker のアバター選択から .hatom ファイルを開く
+- Project Settings > Hatracker > Project Validation を開きます。
+- 修正が必要な項目がある場合は、「Fix」ボタンをクリックして修正します。
+
+## アバターのエクスポート
+
+1. メニューから Hatracker > Exporter を開きます。
+2. prefab を選択し、「Export」ボタンをクリックします。
+3. 保存先を選択すると、エクスポートが開始されます。
+4. Hatracker アプリのアバター選択から .hatom ファイルを選択して読み込みます。
 
 ## アバターの作成
 
 ### 使用可能なコンポーネント
 
+- MagicaCloth2.MagicaCloth
+- MagicaCloth2.MagicaSphereCollider
+- MagicaCloth2.MagicaCapsuleCollider
+- MagicaCloth2.MagicaPlaneCollider
+- MagicaCloth2.MagicaWindZone
 - UniHumanoid.Humanoid
 - UnityEngine.Animator
 - UnityEngine.MeshFilter
 - UnityEngine.MeshRenderer
 - UnityEngine.SkinnedMeshRenderer
 - UnityEngine.Transform
+- UniVRM10.Vrm10AimConstraint
 - UniVRM10.Vrm10Instance
+- UniVRM10.Vrm10RollConstraint
+- UniVRM10.Vrm10RotationConstraint
 - UniVRM10.VRM10SpringBoneCollider
 - UniVRM10.VRM10SpringBoneColliderGroup
 - UniVRM10.VRM10SpringBoneJoint
+
+### 使用可能なアセット
+
+| アセット名          | バージョン   |
+|----------------|---------|
+| Magica Cloth 2 | 2.15.1  |
+| UniGLTF        | 0.131.0 |
+| VRM-1.0        | 0.131.0 |
