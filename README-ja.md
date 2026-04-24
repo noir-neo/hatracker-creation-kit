@@ -13,8 +13,7 @@ VRM 形式では持ち運べないカスタムシェーダーや一部のアセ�
 
 ## インストール方法
 
-- Unity Package Manager 経由
-  - 次のURLを入力します: `https://github.com/noir-neo/hatracker-creation-kit.git` 
+Unity Package Manager の install URL は [最新のリリース](https://github.com/noir-neo/hatracker-creation-kit/releases/latest) を参照してください。
 
 ## プロジェクトのセットアップ
 

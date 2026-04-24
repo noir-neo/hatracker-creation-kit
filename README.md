@@ -13,8 +13,7 @@ Avatars exported as .hatom can be used in Hatracker, a virtual avatar camera app
 
 ## Installation
 
-- Via Unity Package Manager (UPM)
-  - Enter the following URL: `https://github.com/noir-neo/hatracker-creation-kit.git`
+See the [latest release](https://github.com/noir-neo/hatracker-creation-kit/releases/latest) for the Unity Package Manager install URL.
 
 ## Project Setup
 

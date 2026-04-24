@@ -1,0 +1,82 @@
+name: Release UPM Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "Semver bump type"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+
+env:
+  PKG_DIR: Packages/HatrackerCreationKit
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Bump version
+        id: version
+        working-directory: ${{ env.PKG_DIR }}
+        run: |
+          set -euo pipefail
+          TAG=$(npm version ${{ inputs.bump_type }} --no-git-tag-version)
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "Bumped to $TAG"
+
+      - name: Fail if tag already exists
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists on origin" >&2
+            exit 1
+          fi
+
+      - name: Commit, tag, and push
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$PKG_DIR/package.json"
+          git commit -m "Release $TAG"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push --atomic origin master "$TAG"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          NOTES=$(mktemp)
+          cat > "$NOTES" <<EOF
+          ## Installation
+
+          Add the following git URL via Unity Package Manager ("Add package from git URL..."):
+
+          \`\`\`
+          https://github.com/${REPO}.git?path=${PKG_DIR}#${TAG}
+          \`\`\`
+          EOF
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file "$NOTES" \
+            --generate-notes
