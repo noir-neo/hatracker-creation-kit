@@ -1,5 +1,7 @@
 # Hatracker Creation Kit
 
+[English](./README.md) | 日本語
+
 Hatracker Creation Kit（HaCK）は、 Unity でセットアップしたアバターを .hatom 形式でエクスポートするツールです。
 VRM 形式では持ち運べないカスタムシェーダーや一部のアセットを使用できます。
 

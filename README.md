@@ -1,5 +1,7 @@
 # Hatracker Creation Kit
 
+English | [日本語](./README-ja.md)
+
 The Hatracker Creation Kit (HaCK) exports avatars set up in Unity to the .hatom format.
 It supports custom shaders and certain assets that cannot be carried over via the VRM format.
 
