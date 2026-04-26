@@ -1,0 +1,90 @@
+name: Release Prepare
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "Semver bump type"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  PKG_DIR: Packages/HatrackerCreationKit
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Bump version
+        id: version
+        working-directory: ${{ env.PKG_DIR }}
+        run: |
+          set -euo pipefail
+          TAG=$(npm version ${{ inputs.bump_type }} --no-git-tag-version)
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "branch=release/$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Fail if tag already exists
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists on origin" >&2
+            exit 1
+          fi
+
+      - name: Create release branch and push
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          BRANCH: ${{ steps.version.outputs.branch }}
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "$PKG_DIR/package.json"
+          git commit -m "Release $TAG"
+          git push origin "$BRANCH"
+
+      - name: Create pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+          BRANCH: ${{ steps.version.outputs.branch }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          BODY=$(mktemp)
+          cat > "$BODY" <<EOF
+          Release $TAG
+
+          Merging this PR will trigger the publish workflow, which will:
+          - Create an annotated tag \`$TAG\` on the merge commit
+          - Publish a GitHub Release with auto-generated notes
+
+          ## Install URL (will be available after release)
+
+          \`\`\`
+          https://github.com/${REPO}.git?path=${PKG_DIR}#${TAG}
+          \`\`\`
+          EOF
+          gh pr create \
+            --base master \
+            --head "$BRANCH" \
+            --title "Release $TAG" \
+            --body-file "$BODY"
