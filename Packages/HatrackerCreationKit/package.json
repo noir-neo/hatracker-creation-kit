@@ -3,7 +3,7 @@
     "name": "noir_neo"
   },
   "name": "com.neoneobeam.hatracker-creation-kit",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "unity": "6000.3",
   "displayName": "Hatracker Creation Kit",
   "description": "The Hatracker Creation Kit exports your Unity assets to Hatracker.",
