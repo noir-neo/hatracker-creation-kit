@@ -1,17 +1,9 @@
-name: Release UPM Package
+name: Release Publish
 
 on:
-  workflow_dispatch:
-    inputs:
-      bump_type:
-        description: "Semver bump type"
-        required: true
-        default: "patch"
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+  pull_request:
+    types: [closed]
+    branches: [master]
 
 permissions:
   contents: write
@@ -20,7 +12,8 @@ env:
   PKG_DIR: Packages/HatrackerCreationKit
 
 jobs:
-  release:
+  publish:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,36 +21,24 @@ jobs:
         with:
           ref: master
 
-      - name: Bump version
+      - name: Resolve tag from branch name
         id: version
-        working-directory: ${{ env.PKG_DIR }}
-        run: |
-          set -euo pipefail
-          TAG=$(npm version ${{ inputs.bump_type }} --no-git-tag-version)
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "Bumped to $TAG"
-
-      - name: Fail if tag already exists
         env:
-          TAG: ${{ steps.version.outputs.tag }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           set -euo pipefail
-          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists on origin" >&2
-            exit 1
-          fi
+          TAG="${HEAD_REF#release/}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Commit, tag, and push
+      - name: Create and push tag
         env:
           TAG: ${{ steps.version.outputs.tag }}
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$PKG_DIR/package.json"
-          git commit -m "Release $TAG"
           git tag -a "$TAG" -m "Release $TAG"
-          git push --atomic origin master "$TAG"
+          git push origin "$TAG"
 
       - name: Create GitHub Release
         env:
