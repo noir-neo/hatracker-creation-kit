@@ -37,6 +37,12 @@ See the [latest release](https://github.com/noir-neo/hatracker-creation-kit/rele
 - MagicaCloth2.MagicaPlaneCollider
 - MagicaCloth2.MagicaWindZone
 - UniHumanoid.Humanoid
+- UnityEngine.Animations.AimConstraint
+- UnityEngine.Animations.LookAtConstraint
+- UnityEngine.Animations.ParentConstraint
+- UnityEngine.Animations.PositionConstraint
+- UnityEngine.Animations.RotationConstraint
+- UnityEngine.Animations.ScaleConstraint
 - UnityEngine.Animator
 - UnityEngine.MeshFilter
 - UnityEngine.MeshRenderer

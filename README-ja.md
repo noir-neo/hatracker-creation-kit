@@ -37,6 +37,12 @@ Unity Package Manager の install URL は [最新のリリース](https://github
 - MagicaCloth2.MagicaPlaneCollider
 - MagicaCloth2.MagicaWindZone
 - UniHumanoid.Humanoid
+- UnityEngine.Animations.AimConstraint
+- UnityEngine.Animations.LookAtConstraint
+- UnityEngine.Animations.ParentConstraint
+- UnityEngine.Animations.PositionConstraint
+- UnityEngine.Animations.RotationConstraint
+- UnityEngine.Animations.ScaleConstraint
 - UnityEngine.Animator
 - UnityEngine.MeshFilter
 - UnityEngine.MeshRenderer
